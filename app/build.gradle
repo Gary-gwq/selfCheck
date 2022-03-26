@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+
+static def releaseTime() {
+    return new Date().format("yyyy-MM-dd HH-mm", TimeZone.getTimeZone("GMT+8"))
+}
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.3"
+
+    defaultConfig {
+        applicationId "com.gary.sdk.selfCheck"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 3
+        versionName "2.3"
+        multiDexEnabled true
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi'
+        }
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../sign.keystore")
+            storePassword '111111'
+            keyAlias 'shelter'
+            keyPassword '111111'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+            //修改生成的apk名字，格式为 app名_版本号_打包时间_release.apk
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    if (variant.buildType.name == 'release') {
+                        outputFileName = 'selfCheck_' + releaseTime() + '.apk'
+                    }
+                }
+            }
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+repositories {
+    flatDir { dirs 'libs' }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+
+    implementation 'com.android.support:appcompat-v7:26.0.2'
+//    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+}

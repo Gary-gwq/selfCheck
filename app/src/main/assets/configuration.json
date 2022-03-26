@@ -1,0 +1,44 @@
+{
+  "soFile": {
+  },
+  "assets": {
+  },
+  "code_application_name": {
+    "name": "com.huosdk.huounion.sdk.HuoUnionApplication"
+  },
+  "code_api": {
+    "no_scan": {
+      "com.huosdk.huounion.sdk": {
+        "com.huosdk.huounion.sdk.HuoUnionHelper": "init",
+        "com.bun.miitmdid.core": "InitSdk,InitSdk,InitSdk,InitSdk,InitSdk"
+      }
+    }
+  },
+  "metaData": {
+    "HuoUnion_APPID": "1",
+    "HuoUnion_CLIENTID": "1",
+    "HuoUnion_CLIENTKEY": "1"
+  },
+  "permission": {
+    "android.permission.INTERNET": "1",
+    "android.permission.ACCESS_WIFI_STATE": "1",
+    "android.permission.ACCESS_NETWORK_STATE": "1",
+    "android.permission.READ_PHONE_STATE": "1",
+    "android.permission.WRITE_EXTERNAL_STORAGE": "1",
+    "android.permission.REQUEST_INSTALL_PACKAGES": "1"
+  },
+  "activity": {
+    "com.huosdk.huounion.sdk.util.PermissionUtils$PermissionActivity": "1",
+    "com.huosdk.huounion.sdk.ui.RKLlqActivity": "1",
+    "com.huosdk.huounion.sdk.user.RKLoginActivity": "1",
+    "com.huosdk.huounion.sdk.view.PrivacyPolicyActivity": "1",
+    "com.huosdk.huounion.sdk.ui.RKMaiActivity": "1"
+  },
+  "service": {
+    "com.huosdk.huounion.sdk.service.OnlineService": "1",
+    "com.huosdk.huounion.sdk.service.HuounionsdkService": "1"
+  },
+  "provider": {
+    "com.huosdk.huounion.sdk.util.v4.FileProvider": ".huounion.fileprovider"
+  }
+}
