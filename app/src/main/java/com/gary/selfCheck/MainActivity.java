@@ -26,7 +26,7 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
-    private String tag = "tanwan";
+    private String tag = "selfCheck";
     private EditText etPackageName;
     private Button btStart;
     private static TextView tvSuccess;

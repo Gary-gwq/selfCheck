@@ -31,7 +31,7 @@ public class SplashFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        Log.e("tanwan", "......................onCreateView");
+        Log.e("selfCheck", "......................onCreateView");
         int layoutID = getResources().getIdentifier("huouniongame_splash_activity", "layout", mContext.getPackageName());
         View view = inflater.inflate(layoutID, container);// 需要用android.R.id.content这个view
         appendAnimation(view);
@@ -62,7 +62,7 @@ public class SplashFragment extends DialogFragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Log.e("tanwan", "......................onAnimationEnd");
+                Log.e("selfCheck", "......................onAnimationEnd");
                 animation.cancel();
                 if (image != null) {
                     image.clearAnimation();
@@ -85,7 +85,7 @@ public class SplashFragment extends DialogFragment {
         wm.getDefaultDisplay().getMetrics(dm);
         int widthPixels = dm.widthPixels;
         int heightPixels = dm.heightPixels;
-        Log.e("tanwan", String.valueOf(widthPixels));
+        Log.e("selfCheck", String.valueOf(widthPixels));
         if (null != getDialog() && null != getDialog().getWindow()) {
             getDialog().getWindow().setLayout(dm.widthPixels,dm.heightPixels);
         }
