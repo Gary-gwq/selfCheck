@@ -24,7 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gary.other.deeplink.DeeplinkDataUtil;
-import com.gary.other.oaid.ParamImpl1013;
+//import com.gary.other.oaid.ParamImpl1013;
 import com.gary.other.oaid.ParamImpl1025;
 import com.gary.sdk.selfCheck.R;
 
@@ -97,25 +97,25 @@ public class MainActivity extends Activity {
         });
     }
 
-    private void getOaid1013() {
-        try {
-            Class<?> cls = Class.forName("com.bun.miitmdid.core.JLibrary");
-            Method method = cls.getMethod("InitEntry", Context.class);
-            method.invoke(null, Utils.mainContext);
-        } catch (Exception e) {
-            Log.e("selfCheck", "未添加oaid插件");
-        }
-
-        Log.i(TAG,"1013 oaid=");
-        String className1013 = "com.gary.other.oaid.ParamImpl1013";
-        try {
-            ParamImpl1013 iParam = (ParamImpl1013) Class.forName(className1013).newInstance();
-            Map map = iParam.getParam(Utils.mainContext);
-            Log.i(TAG,"oaid1013="+map.get("device-oa_id"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private void getOaid1013() {
+//        try {
+//            Class<?> cls = Class.forName("com.bun.miitmdid.core.JLibrary");
+//            Method method = cls.getMethod("InitEntry", Context.class);
+//            method.invoke(null, Utils.mainContext);
+//        } catch (Exception e) {
+//            Log.e("selfCheck", "未添加oaid插件");
+//        }
+//
+//        Log.i(TAG,"1013 oaid=");
+//        String className1013 = "com.gary.other.oaid.ParamImpl1013";
+//        try {
+//            ParamImpl1013 iParam = (ParamImpl1013) Class.forName(className1013).newInstance();
+//            Map map = iParam.getParam(Utils.mainContext);
+//            Log.i(TAG,"oaid1013="+map.get("device-oa_id"));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void getOaid1025() {
         Log.i(TAG,"1025 oaid=");
