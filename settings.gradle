@@ -1,2 +1,4 @@
 rootProject.name='selfCheck'
 include ':app'
+include 'plugins:oaid_1013'
+include 'plugins:oaid_1025'

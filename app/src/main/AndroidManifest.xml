@@ -2,6 +2,7 @@
     package="com.gary.sdk.selfCheck">
 
     <application
+        android:name="com.gary.selfCheck.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -27,7 +28,6 @@
                     android:path="/main" />
             </intent-filter>
         </activity>
-<!--        <activity android:name="com.gary.selfCheck.MainActivity"/>-->
         <service
             android:name="com.gary.selfCheck.LocalService"
             android:enabled="true" />

@@ -2,6 +2,7 @@ package com.gary.selfCheck;
 
 
 import static com.gary.selfCheck.Utils.DISPENSE;
+import static com.gary.selfCheck.Utils.TAG;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -11,18 +12,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gary.sdk.selfCheck.R;
 import com.gary.other.deeplink.DeeplinkDataUtil;
+import com.gary.other.oaid.ParamImpl1013;
+import com.gary.other.oaid.ParamImpl1025;
+import com.gary.sdk.selfCheck.R;
 
+import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends Activity {
 
@@ -39,6 +47,21 @@ public class MainActivity extends Activity {
     public DeeplinkDataUtil deeplinkDataUtil;
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus && Build.VERSION.SDK_INT >= 19) {//真正的沉浸式模式
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
+
+    @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -49,6 +72,7 @@ public class MainActivity extends Activity {
         tvSuccess = findViewById(R.id.tv_success);
         tvErr = findViewById(R.id.tv_err);
         tvHint = findViewById(R.id.tv_hint);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         btStart.setOnClickListener(v -> {
             if (!tvHint.getText().toString().isEmpty() && !tvHint.getText().toString().contains("检测完成")) {
                 Toast.makeText(MainActivity.this, "请等待上一次检测完成！", Toast.LENGTH_SHORT).show();
@@ -71,6 +95,38 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this, "需要检测的App未安装", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void getOaid1013() {
+        try {
+            Class<?> cls = Class.forName("com.bun.miitmdid.core.JLibrary");
+            Method method = cls.getMethod("InitEntry", Context.class);
+            method.invoke(null, Utils.mainContext);
+        } catch (Exception e) {
+            Log.e("selfCheck", "未添加oaid插件");
+        }
+
+        Log.i(TAG,"1013 oaid=");
+        String className1013 = "com.gary.other.oaid.ParamImpl1013";
+        try {
+            ParamImpl1013 iParam = (ParamImpl1013) Class.forName(className1013).newInstance();
+            Map map = iParam.getParam(Utils.mainContext);
+            Log.i(TAG,"oaid1013="+map.get("device-oa_id"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getOaid1025() {
+        Log.i(TAG,"1025 oaid=");
+        String className1025 = "com.gary.other.oaid1025.ParamImpl";
+        try {
+            ParamImpl1025 iParam = (ParamImpl1025) Class.forName(className1025).newInstance();
+            Map map = iParam.getParam(Utils.mainContext);
+            Log.i(TAG,"oaid1025="+map.get("device-oa_id"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void doEmpty() {

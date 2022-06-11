@@ -9,8 +9,7 @@
   "code_api": {
     "no_scan": {
       "com.huosdk.huounion.sdk": {
-        "com.huosdk.huounion.sdk.HuoUnionHelper": "init",
-        "com.bun.miitmdid.core": "InitSdk,InitSdk,InitSdk,InitSdk,InitSdk"
+        "com.game.sdk.HuosdkManager": "showLogin"
       }
     }
   },
